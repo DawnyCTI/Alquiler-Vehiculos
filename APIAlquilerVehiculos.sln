@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.API", "AlquilerVehiculos.API\AlquilerVehiculos.API.csproj", "{94FB39F6-262F-4C15-9BDE-97D202D267B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.DAL", "AlquilerVehiculos.DAL\AlquilerVehiculos.DAL.csproj", "{110C993F-0830-4B9D-86C5-E200851943BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.BLL", "AlquilerVehiculos.BLL\AlquilerVehiculos.BLL.csproj", "{FA5B3F85-0ED1-4FA5-BA45-3EEA21B39E06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.Model", "AlquilerVehiculos.Model\AlquilerVehiculos.Model.csproj", "{ACAE92DE-C192-418E-B8E4-B5044775BF15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.IOC", "AlquilerVehiculos.IOC\AlquilerVehiculos.IOC.csproj", "{F4996740-64A6-40B0-A5F0-6794DEAFC87B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.DTO", "AlquilerVehiculos.DTO\AlquilerVehiculos.DTO.csproj", "{87BBC7CE-B41F-423A-B1FF-C217EFFE249B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlquilerVehiculos.Utility", "AlquilerVehiculos.Utility\AlquilerVehiculos.Utility.csproj", "{7A3DC8D8-49B3-41F0-9C72-729D69D64574}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94FB39F6-262F-4C15-9BDE-97D202D267B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FB39F6-262F-4C15-9BDE-97D202D267B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FB39F6-262F-4C15-9BDE-97D202D267B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FB39F6-262F-4C15-9BDE-97D202D267B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{110C993F-0830-4B9D-86C5-E200851943BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{110C993F-0830-4B9D-86C5-E200851943BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{110C993F-0830-4B9D-86C5-E200851943BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{110C993F-0830-4B9D-86C5-E200851943BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA5B3F85-0ED1-4FA5-BA45-3EEA21B39E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA5B3F85-0ED1-4FA5-BA45-3EEA21B39E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA5B3F85-0ED1-4FA5-BA45-3EEA21B39E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA5B3F85-0ED1-4FA5-BA45-3EEA21B39E06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACAE92DE-C192-418E-B8E4-B5044775BF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACAE92DE-C192-418E-B8E4-B5044775BF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACAE92DE-C192-418E-B8E4-B5044775BF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACAE92DE-C192-418E-B8E4-B5044775BF15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4996740-64A6-40B0-A5F0-6794DEAFC87B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4996740-64A6-40B0-A5F0-6794DEAFC87B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4996740-64A6-40B0-A5F0-6794DEAFC87B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4996740-64A6-40B0-A5F0-6794DEAFC87B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87BBC7CE-B41F-423A-B1FF-C217EFFE249B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87BBC7CE-B41F-423A-B1FF-C217EFFE249B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87BBC7CE-B41F-423A-B1FF-C217EFFE249B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87BBC7CE-B41F-423A-B1FF-C217EFFE249B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3DC8D8-49B3-41F0-9C72-729D69D64574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3DC8D8-49B3-41F0-9C72-729D69D64574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3DC8D8-49B3-41F0-9C72-729D69D64574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3DC8D8-49B3-41F0-9C72-729D69D64574}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2A0B837-A3B8-4917-816B-F9B1DE7E4CB8}
+	EndGlobalSection
+EndGlobal
