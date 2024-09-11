@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using AlquilerVehiculos.DAL.Repositorios.Contrato;
+using AlquilerVehiculos.DAL.Repositorios;
+
 namespace AlquilerVehiculos.IOC
 {
     public static class Dependencia
@@ -17,6 +20,9 @@ namespace AlquilerVehiculos.IOC
             services.AddDbContext<DbalquilerVehiculosContext>(options => {
                 options.UseSqlServer(configuration.GetConnectionString("cadenaSQL"));
             });
+
+            services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+            services.AddScoped<IVentaRepository,IVentaRepository>();
         }
     }
 }

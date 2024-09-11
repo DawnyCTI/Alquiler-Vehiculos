@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 
-namespace AlquilerVehiculos.DAL.Repositorios.Contrato
+namespace AlquilerVehiculos.DAL.Repositorios
 {
     public class GenericRepository<TModelo> : IGenericRepository<TModelo> where TModelo : class
     {
-        private readonly DbalquilerVehiculosContext dbcontext;
+        private readonly DbalquilerVehiculosContext _dbcontext;
 
         public GenericRepository(DbalquilerVehiculosContext dbcontext)
         {
-            this.dbcontext = dbcontext;
+            _dbcontext = dbcontext;
         }
 
         public async Task<TModelo> Obtener(Expression<Func<TModelo, bool>> filtro)
@@ -34,11 +34,13 @@ namespace AlquilerVehiculos.DAL.Repositorios.Contrato
             }
         }
 
-        public Task<TModelo> Crear(TModelo modelo)
+        public async Task<TModelo> Crear(TModelo modelo)
         {
             try
             {
-
+                _dbcontext.Set<TModelo>().Add(modelo);
+                await _dbcontext.SaveChangesAsync();
+                return modelo;
             }
             catch
             {
@@ -46,11 +48,13 @@ namespace AlquilerVehiculos.DAL.Repositorios.Contrato
             }
         }
 
-        public Task<bool> Editar(TModelo modelo)
+        public async Task<bool> Editar(TModelo modelo)
         {
             try
             {
-
+                _dbcontext.Set<TModelo>().Update(modelo);
+                await _dbcontext.SaveChangesAsync();
+                return true;
             }
             catch
             {
@@ -58,22 +62,25 @@ namespace AlquilerVehiculos.DAL.Repositorios.Contrato
             }
         }
 
-        public Task<bool> Eliminar(TModelo modelo)
+        public async Task<bool> Eliminar(TModelo modelo)
         {
             try
             {
-
+                _dbcontext.Set<TModelo>().Remove(modelo);
+                await _dbcontext.SaveChangesAsync();
+                return true;
             }
             catch
             {
                 throw;
             }
         }
-        public Task<IQueryable<TModelo>> Consultar(Expression<Func<TModelo, bool>> filtro = null)
+        public async Task<IQueryable<TModelo>> Consultar(Expression<Func<TModelo, bool>> filtro = null)
         {
             try
             {
-
+                IQueryable<TModelo> queryModelo = filtro == null ? _dbcontext.Set<TModelo>(): _dbcontext.Set<TModelo>().Where(filtro);
+                return queryModelo;
             }
             catch
             {
