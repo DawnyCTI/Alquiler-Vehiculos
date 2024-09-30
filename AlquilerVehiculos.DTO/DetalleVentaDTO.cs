@@ -10,10 +10,12 @@ namespace AlquilerVehiculos.DTO
     {
         public int? IdVehiculo { get; set; }
 
+        public string? DescripcionProductos { get; set; }
+
         public int? Cantidad { get; set; }
 
-        public decimal? Precio { get; set; }
+        public string? PrecioTexto { get; set; }
 
-        public decimal? Total { get; set; }
+        public string? TotalTexto { get; set; }
     }
 }
