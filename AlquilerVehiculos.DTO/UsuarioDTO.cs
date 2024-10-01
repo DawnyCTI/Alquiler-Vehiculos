@@ -15,5 +15,6 @@ namespace AlquilerVehiculos.DTO
         public string? RolDescripcion { get; set; }
         public string? Clave { get; set; }
         public bool? EsActivo { get; set; }
+        public object IdRolNavigation { get; set; }
     }
 }
