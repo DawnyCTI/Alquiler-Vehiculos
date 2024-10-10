@@ -5,6 +5,8 @@ namespace AlquilerVehiculos.Model;
 
 public partial class DetalleVenta
 {
+    public object FechaRegistro;
+
     public int IdDetalleVenta { get; set; }
 
     public int? IdVenta { get; set; }

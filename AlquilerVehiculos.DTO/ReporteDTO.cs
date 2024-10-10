@@ -8,9 +8,11 @@ namespace AlquilerVehiculos.DTO
 {
     public class ReporteDTO
     {
+        public object IdVentaNavigation;
+
         public string? NumeroDocumento {  get; set; }
         public string? TipoPago { get; set; }
-        public string? FechaRegistro { get; set; }
+        public DateTime? FechaRegistro { get; set; }
 
         public string? TotalVenta { get; set; }
         public string? Vehiculo { get; set; }
