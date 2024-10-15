@@ -123,41 +123,38 @@ namespace AlquilerVehiculos.Utility
 
             #region Reporte
             CreateMap<Venta, ReporteDTO>()
-                .ForMember(destino =>
-                    destino.FechaRegistro,
-                    opt => opt.MapFrom(origen => ((Venta)origen.IdVentaNavigation).FechaRegistro.Value.ToString("dd/MM/yyyy"))
-                    )
-               .ForMember(destino =>
-                                  destino.NumeroDocumento,
-                                                     opt => opt.MapFrom(origen => ((Venta)origen.IdVentaNavigation).NumeroDocumento)
-                                                                        )
-               .ForMember(destino =>
-                  destino.TotalVenta,
-                  opt => opt.MapFrom(origen => Convert.ToString(((Venta)origen.IdVentaNavigation).Total.Value, new CultureInfo("es-DR")))
-                    )
-
-               .ForMember(destino =>
-               destino.TipoPago,
-                    opt => opt.MapFrom(origen => ((Venta)origen.IdVentaNavigation).TipoPago)
-                        )
-               .ForMember(destino =>
-               destino.Vehiculo,
-                      opt => opt.MapFrom(origen => ((DetalleVenta)origen.IdDetalleVentaNavigation).IdVehiculoNavigation.Nombre)
-                            )
-               .ForMember(destino =>
-               destino.Cantidad,
-                         opt => opt.MapFrom(origen => ((DetalleVenta)origen.IdDetalleVentaNavigation).Cantidad)
-                             )
-
-               .ForMember(destino =>
-               destino.Precio,
-                             opt => opt.MapFrom(origen => Convert.ToString(((DetalleVenta)origen.IdDetalleVentaNavigation).Precio.Value, new CultureInfo("es-DR")))
-                              )
-
-               .ForMember(destino =>
-               destino.Total,
-                                 opt => opt.MapFrom(origen => Convert.ToString(((DetalleVenta)origen.IdDetalleVentaNavigation).Total.Value, new CultureInfo("es-DR")))
-                                  );
+    .ForMember(destino =>
+        destino.FechaRegistro,
+        opt => opt.MapFrom(origen => origen.FechaRegistro.Value.ToString("dd/MM/yyyy"))
+    )
+    .ForMember(destino =>
+        destino.NumeroDocumento,
+        opt => opt.MapFrom(origen => origen.NumeroDocumento)
+    )
+    .ForMember(destino =>
+        destino.TotalVenta,
+        opt => opt.MapFrom(origen => Convert.ToString(origen.Total.Value, new CultureInfo("es-DR")))
+    )
+    .ForMember(destino =>
+        destino.TipoPago,
+        opt => opt.MapFrom(origen => origen.TipoPago)
+    )
+    .ForMember(destino =>
+        destino.Vehiculo,
+        opt => opt.MapFrom(origen => origen.DetalleVenta.FirstOrDefault().IdVehiculoNavigation.Nombre)
+    )
+    .ForMember(destino =>
+        destino.Cantidad,
+        opt => opt.MapFrom(origen => origen.DetalleVenta.FirstOrDefault().Cantidad)
+    )
+    .ForMember(destino =>
+        destino.Precio,
+        opt => opt.MapFrom(origen => Convert.ToString(origen.DetalleVenta.FirstOrDefault().Precio.Value, new CultureInfo("es-DR")))
+    )
+    .ForMember(destino =>
+        destino.Total,
+        opt => opt.MapFrom(origen => Convert.ToString(origen.DetalleVenta.FirstOrDefault().Total.Value, new CultureInfo("es-DR")))
+    );
 
 
             #endregion Reporte
