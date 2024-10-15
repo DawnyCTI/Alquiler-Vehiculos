@@ -144,7 +144,6 @@ namespace AlquilerVehiculos.Utility
                destino.Vehiculo,
                       opt => opt.MapFrom(origen => ((DetalleVenta)origen.IdDetalleVentaNavigation).IdVehiculoNavigation.Nombre)
                             )
-
                .ForMember(destino =>
                destino.Cantidad,
                          opt => opt.MapFrom(origen => ((DetalleVenta)origen.IdDetalleVentaNavigation).Cantidad)
