@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using AlquilerVehiculos.DAL.Repositorios.Contrato;
 using AlquilerVehiculos.DAL.Repositorios;
 
+using AlquilerVehiculos.Utility;
+
 namespace AlquilerVehiculos.IOC
 {
     public static class Dependencia
@@ -22,7 +24,9 @@ namespace AlquilerVehiculos.IOC
             });
 
             services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
-            services.AddScoped<IVentaRepository,IVentaRepository>();
+            services.AddScoped<IVentaRepository,VentaRepository>();
+
+            services.AddAutoMapper(typeof(AutoMapperProfile));
         }
     }
 }

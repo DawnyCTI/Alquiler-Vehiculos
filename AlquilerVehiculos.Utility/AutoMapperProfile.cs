@@ -122,6 +122,45 @@ namespace AlquilerVehiculos.Utility
             #endregion DetalleVenta
 
             #region Reporte
+            CreateMap<Venta, ReporteDTO>()
+                .ForMember(destino =>
+                    destino.FechaRegistro,
+                    opt => opt.MapFrom(origen => ((Venta)origen.IdVentaNavigation).FechaRegistro.Value.ToString("dd/MM/yyyy"))
+                    )
+               .ForMember(destino =>
+                                  destino.NumeroDocumento,
+                                                     opt => opt.MapFrom(origen => ((Venta)origen.IdVentaNavigation).NumeroDocumento)
+                                                                        )
+               .ForMember(destino =>
+                  destino.TotalVenta,
+                  opt => opt.MapFrom(origen => Convert.ToString(((Venta)origen.IdVentaNavigation).Total.Value, new CultureInfo("es-DR")))
+                    )
+
+               .ForMember(destino =>
+               destino.TipoPago,
+                    opt => opt.MapFrom(origen => ((Venta)origen.IdVentaNavigation).TipoPago)
+                        )
+               .ForMember(destino =>
+               destino.Vehiculo,
+                      opt => opt.MapFrom(origen => ((DetalleVenta)origen.IdDetalleVentaNavigation).IdVehiculoNavigation.Nombre)
+                            )
+
+               .ForMember(destino =>
+               destino.Cantidad,
+                         opt => opt.MapFrom(origen => ((DetalleVenta)origen.IdDetalleVentaNavigation).Cantidad)
+                             )
+
+               .ForMember(destino =>
+               destino.Precio,
+                             opt => opt.MapFrom(origen => Convert.ToString(((DetalleVenta)origen.IdDetalleVentaNavigation).Precio.Value, new CultureInfo("es-DR")))
+                              )
+
+               .ForMember(destino =>
+               destino.Total,
+                                 opt => opt.MapFrom(origen => Convert.ToString(((DetalleVenta)origen.IdDetalleVentaNavigation).Total.Value, new CultureInfo("es-DR")))
+                                  );
+
+
             #endregion Reporte
 
         }
