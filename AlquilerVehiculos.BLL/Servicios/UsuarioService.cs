@@ -9,6 +9,7 @@ using AlquilerVehiculos.BLL.Servicios.Contrato;
 using AlquilerVehiculos.DAL.Repositorios.Contrato;
 using AlquilerVehiculos.DTO;
 using AlquilerVehiculos.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace AlquilerVehiculos.BLL.Servicios
 {
@@ -23,14 +24,51 @@ namespace AlquilerVehiculos.BLL.Servicios
             _mapper = mapper;
         }
 
-        public Task<SesionDTO> Crear(UsuarioDTO modelo)
+        public async Task<SesionDTO> Crear(UsuarioDTO modelo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var usuarioCreado = await _usuarioRepositorio.Crear(_mapper.Map<Usuario>(modelo));
+
+                if(usuarioCreado.IdUsuario == 0)
+                    throw new TaskCanceledException("No se pudo crear el usuario");
+
+                var queryUsuario = await _usuarioRepositorio.Consultar(u => u.IdUsuario == usuarioCreado.IdUsuario);
+
+                usuarioCreado = queryUsuario.Include(rol => rol.IdRolNavigation).First();
+
+                return _mapper.Map<SesionDTO>(usuarioCreado);
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        public Task<bool> Editar(UsuarioDTO modelo)
+        public async Task<bool> Editar(UsuarioDTO modelo)
         {
-            throw new NotImplementedException();
+           var usuarioModelo = _mapper.Map<Usuario>(modelo);
+
+            var usuarioEncontrado = await _usuarioRepositorio.Obtener(u => u.IdUsuario == usuarioModelo.IdUsuario);
+
+            if(usuarioEncontrado == null)
+                throw new TaskCanceledException("El Usuario no existe");
+
+            usuarioEncontrado.NombreCompleto = usuarioModelo.NombreCompleto;
+            usuarioEncontrado.Correo = usuarioModelo.Correo;
+            usuarioEncontrado.Clave = usuarioModelo.Clave;
+            usuarioEncontrado.IdRol = usuarioModelo.IdRol;
+            usuarioEncontrado.EsActivo = usuarioModelo.EsActivo;
+
+            bool respuesta = await _usuarioRepositorio.Editar(usuarioEncontrado);
+
+            if(!respuesta)
+                throw new TaskCanceledException("No se pudo editar el usuario");
+
+            return respuesta;
+
+
         }
 
         public Task<bool> Eliminar(int id)
@@ -38,14 +76,40 @@ namespace AlquilerVehiculos.BLL.Servicios
             throw new NotImplementedException();
         }
 
-        public Task<List<UsuarioDTO>> Lista()
+        public async Task<List<UsuarioDTO>> Lista()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var queryUsuarios = await _usuarioRepositorio.Consultar();
+                var listaUsuarios = queryUsuarios.Include(rol => rol.IdRolNavigation).ToList();
+                
+                return _mapper.Map<List<UsuarioDTO>>(listaUsuarios);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        public Task<SesionDTO> ValidarCredenciales(string correo, string clave)
+        public async Task<SesionDTO> ValidarCredenciales(string correo, string clave)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var queryUsuario = await _usuarioRepositorio.Consultar(u => 
+                u.Correo == correo && 
+                u.Clave == clave);
+
+                if(queryUsuario.FirstOrDefault() == null)
+                throw new TaskCanceledException("Usuario no existe");
+
+                Usuario devolverUsuario = queryUsuario.Include(rol => rol.IdRolNavigation).First();
+
+                return _mapper.Map<SesionDTO>(devolverUsuario);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
