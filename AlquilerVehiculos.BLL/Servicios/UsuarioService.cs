@@ -10,6 +10,7 @@ using AlquilerVehiculos.DAL.Repositorios.Contrato;
 using AlquilerVehiculos.DTO;
 using AlquilerVehiculos.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace AlquilerVehiculos.BLL.Servicios
 {
@@ -48,32 +49,55 @@ namespace AlquilerVehiculos.BLL.Servicios
 
         public async Task<bool> Editar(UsuarioDTO modelo)
         {
-           var usuarioModelo = _mapper.Map<Usuario>(modelo);
+            try
+            {
+                var usuarioModelo = _mapper.Map<Usuario>(modelo);
 
-            var usuarioEncontrado = await _usuarioRepositorio.Obtener(u => u.IdUsuario == usuarioModelo.IdUsuario);
+                var usuarioEncontrado = await _usuarioRepositorio.Obtener(u => u.IdUsuario == usuarioModelo.IdUsuario);
 
-            if(usuarioEncontrado == null)
-                throw new TaskCanceledException("El Usuario no existe");
+                if (usuarioEncontrado == null)
+                    throw new TaskCanceledException("El Usuario no existe");
 
-            usuarioEncontrado.NombreCompleto = usuarioModelo.NombreCompleto;
-            usuarioEncontrado.Correo = usuarioModelo.Correo;
-            usuarioEncontrado.Clave = usuarioModelo.Clave;
-            usuarioEncontrado.IdRol = usuarioModelo.IdRol;
-            usuarioEncontrado.EsActivo = usuarioModelo.EsActivo;
+                usuarioEncontrado.NombreCompleto = usuarioModelo.NombreCompleto;
+                usuarioEncontrado.Correo = usuarioModelo.Correo;
+                usuarioEncontrado.Clave = usuarioModelo.Clave;
+                usuarioEncontrado.IdRol = usuarioModelo.IdRol;
+                usuarioEncontrado.EsActivo = usuarioModelo.EsActivo;
 
-            bool respuesta = await _usuarioRepositorio.Editar(usuarioEncontrado);
+                bool respuesta = await _usuarioRepositorio.Editar(usuarioEncontrado);
 
-            if(!respuesta)
-                throw new TaskCanceledException("No se pudo editar el usuario");
+                if (!respuesta)
+                    throw new TaskCanceledException("No se pudo editar el usuario");
 
-            return respuesta;
-
-
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        public Task<bool> Eliminar(int id)
+
+        public async Task<bool> Eliminar(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var usuarioEncontrado = await _usuarioRepositorio.Obtener(u => u.IdUsuario == id);
+
+                if (usuarioEncontrado == null)
+                    throw new TaskCanceledException("El Usuario no existe");
+
+                bool respuesta = await _usuarioRepositorio.Eliminar(usuarioEncontrado);
+
+                if (!respuesta)
+                    throw new TaskCanceledException("No se pudo eliminar el usuario");
+
+                return respuesta;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<List<UsuarioDTO>> Lista()
