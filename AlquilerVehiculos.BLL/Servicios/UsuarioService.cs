@@ -71,9 +71,9 @@ namespace AlquilerVehiculos.BLL.Servicios
 
         }
 
-        public Task<bool> Eliminar(int id)
+        public async Task<bool> Eliminar(int id)
         {
-            throw new NotImplementedException();
+            var vehiculoEncontrado = await _vehiculoRepositorio.Obtner(p )
         }
 
         public async Task<List<UsuarioDTO>> Lista()
