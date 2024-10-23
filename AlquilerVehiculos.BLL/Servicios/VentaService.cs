@@ -10,6 +10,8 @@ using AlquilerVehiculos.DAL.Repositorios.Contrato;
 using AlquilerVehiculos.DTO;
 using AlquilerVehiculos.Model;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace AlquilerVehiculos.BLL.Servicios
 {
@@ -47,16 +49,16 @@ namespace AlquilerVehiculos.BLL.Servicios
         public async Task<List<VentaDTO>> Historial(string buscarPor, string numeroVenta, string fechaInicio, string fechaFin)
         {
             IQueryable<Venta> ventas = await _ventaRepositorio.Consultar();
-            var ListaResultado = new List<VentaDTO>();
+            var ListaResultado = new List<Venta>();
 
             try
             {
                 if (buscarPor == "fecha")
                 {
-                    DateTime fech_Inicio = DateTime.Parse(fechaInicio, "dd/MM/yyyy", new CultureInfo("es-DR"));
-                    DateTime fech_Fin = DateTime.Parse(fechaFin, "dd/MM/yyyy", new CultureInfo("es-DR"));
+                    DateTime fech_Inicio = DateTime.ParseExact(fechaInicio, "dd/MM/yyyy", new CultureInfo("es-DR"));
+                    DateTime fech_Fin = DateTime.ParseExact(fechaFin, "dd/MM/yyyy", new CultureInfo("es-DR"));
 
-                    ListaResultado = await query.Where(v =>
+                    ListaResultado = await ventas.Where(v =>
                     v.FechaRegistro.Value.Date >= fech_Inicio.Date &&
                     v.FechaRegistro.Value.Date <= fech_Fin.Date
                     ).Include(dv => dv.DetalleVenta)
@@ -65,7 +67,7 @@ namespace AlquilerVehiculos.BLL.Servicios
                 }
                 else
                 {
-                    ListaResultado = await query.Where(v =>
+                    ListaResultado = await ventas.Where(v =>
                     v.NumeroDocumento == numeroVenta
                     ).Include(dv => dv.DetalleVenta)
                     .ThenInclude(p => p.IdVehiculoNavigation)
@@ -80,10 +82,31 @@ namespace AlquilerVehiculos.BLL.Servicios
             return _mapper.Map<List<VentaDTO>>(ListaResultado);
         }
 
-        public Task<List<ReporteDTO>> Reporte(string fehcaInicio, string FechaFin)
+        public async Task<List<ReporteDTO>> Reporte(string fehcaInicio, string FechaFin)
         {
-            throw new NotImplementedException();
-        }
-    }
+            IQueryable<DetalleVenta> query = await _detalleVentaRepositorio.Consultar();
+            var ListaResultado = new List<DetalleVenta>();
 
+            try
+            {
+                DateTime fech_Inicio = DateTime.ParseExact(fehcaInicio, "dd/MM/yyyy", new CultureInfo("es-DR"));
+                DateTime fech_Fin = DateTime.ParseExact(FechaFin, "dd/MM/yyyy", new CultureInfo("es-DR"));
+
+                ListaResultado = await query
+                    .Include(v => v.IdVehiculoNavigation)
+                    .Include(v => v.IdVentaNavigation)
+                    .Where(dv =>
+                        dv.IdVentaNavigation.FechaRegistro.Value.Date >= fech_Inicio.Date &&
+                        dv.IdVentaNavigation.FechaRegistro.Value.Date <= fech_Fin.Date
+                    ).ToListAsync();
+            }
+            catch
+            {
+                throw;
+            }
+
+            return _mapper.Map<List<ReporteDTO>>(ListaResultado);
+        }
+
+    }
 }

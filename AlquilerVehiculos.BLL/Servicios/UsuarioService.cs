@@ -77,12 +77,6 @@ namespace AlquilerVehiculos.BLL.Servicios
             }
         }
 
-<<<<<<< HEAD
-        public async Task<bool> Eliminar(int id)
-        {
-            var vehiculoEncontrado = await _vehiculoRepositorio.Obtner(p )
-=======
-
         public async Task<bool> Eliminar(int id)
         {
             try
@@ -103,8 +97,8 @@ namespace AlquilerVehiculos.BLL.Servicios
             {
                 throw;
             }
->>>>>>> da3a642b28befd2f3cfb8ddd802f4807716f702b
         }
+
 
         public async Task<List<UsuarioDTO>> Lista()
         {
