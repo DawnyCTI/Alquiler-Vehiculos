@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AlquilerVehiculos.Model;
+namespace AlquilerVehiculos.Model.Models;
 
-public partial class Venta
+public partial class Ventum
 {
     public int IdVenta { get; set; }
 
@@ -15,9 +15,5 @@ public partial class Venta
 
     public DateTime? FechaRegistro { get; set; }
 
-    // Relación con DetalleVenta
-    public virtual ICollection<DetalleVenta> DetalleVenta { get; set; } = new List<DetalleVenta>();
-
-    
-    public virtual Vehiculo IdVehiculoNavigation { get; set; }
+    public virtual ICollection<DetalleVentum> DetalleVenta { get; } = new List<DetalleVentum>();
 }
