@@ -12,6 +12,9 @@ using AlquilerVehiculos.DAL.Repositorios.Contrato;
 using AlquilerVehiculos.DAL.Repositorios;
 
 using AlquilerVehiculos.Utility;
+using AlquilerVehiculos.BLL.Servicios.Contrato;
+
+using AlquilerVehiculos.BLL.Servicios; // Agregar esta línea
 
 namespace AlquilerVehiculos.IOC
 {
@@ -23,10 +26,19 @@ namespace AlquilerVehiculos.IOC
                 options.UseSqlServer(configuration.GetConnectionString("cadenaSQL"));
             });
 
-            services.AddTransient(typeof(IGenericRepository<>),typeof(GenericRepository<>));
-            services.AddScoped<IVentaRepository,VentaRepository>();
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IVentaRepository, VentaRepository>();
 
             services.AddAutoMapper(typeof(AutoMapperProfile));
+
+            services.AddScoped<IRolService, RolService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<ICategoriaService, CategoriaService>();
+            services.AddScoped<IVehiculoService, VehiculoService>();
+            services.AddScoped<IVentaService, VentaService>();
+            services.AddScoped<IDashBoardService, DashBoardService>();
+            services.AddScoped<IMenuService, MenuService>();
+
         }
     }
 }

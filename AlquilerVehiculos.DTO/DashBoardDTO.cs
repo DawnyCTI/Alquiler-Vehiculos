@@ -9,7 +9,8 @@ namespace AlquilerVehiculos.DTO
     public class DashBoardDTO
     {
         public int TotalVentas { get; set; }
-        public string? TotalIngreso { get; set; }
+        public string? TotalIngresos { get; set; }
+        public int TotalVehiculos { get; set; }
         public List<VentaSemanaDTO> VentasUltimaSemana { get; set; }
     }
 }
